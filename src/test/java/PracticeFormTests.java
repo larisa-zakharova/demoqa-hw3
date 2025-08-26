@@ -3,16 +3,16 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import static com.codeborne.selenide.Condition.text;
-import static com.codeborne.selenide.Selectors.*;
+import static com.codeborne.selenide.Condition.visible;
+import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
-
 
 
 public class PracticeFormTests {
 
     @BeforeAll
     static void initialConfig() {
-        Configuration.browserSize ="1920x1080";
+        Configuration.browserSize = "1920x1080";
         Configuration.baseUrl = "https://demoqa.com";
         Configuration.pageLoadStrategy = "eager";
         //Configuration.holdBrowserOpen = true;
@@ -22,6 +22,9 @@ public class PracticeFormTests {
     @Test
     void fillFormTest() {
         open("/automation-practice-form");
+        //Удаление всплывающих баннеров
+        executeJavaScript("$('#fixedban').remove()");
+        executeJavaScript("$('footer').remove()");
         $("#firstName").setValue("Alex");
         $("#lastName").setValue("Ivanov");
         $("#userEmail").setValue("alex_ivanov@gmail.com");
@@ -41,16 +44,17 @@ public class PracticeFormTests {
         $("#react-select-4-input").setValue("Delhi").pressEnter();
         $("#submit").click();
 
-        $("tr", 1).shouldHave(text("Alex Ivanov"));
-        $("tr", 2).shouldHave(text("alex_ivanov@gmail.com"));
-        $("tr", 3).shouldHave(text("Male"));
-        $("tr", 4).shouldHave(text("8900234456"));
-        $("tr", 5).shouldHave(text("24 October,2000"));
-        $("tr", 6).shouldHave(text("English, Computer Science"));
-        $("tr", 7).shouldHave(text("Sports, Music"));
-        $("tr", 8).shouldHave(text("images.jfif"));
-        $("tr", 9).shouldHave(text("Saint Petersburg, Nevskiy prospekt, 9"));
-        $("tr", 10).shouldHave(text("NCR Delhi"));
+        $(".modal-content").shouldBe(visible);
+        $(".table-responsive").$(byText("Student Name")).parent().shouldHave(text("Alex Ivanov"));
+        $(".table-responsive").$(byText("Student Email")).parent().shouldHave(text("alex_ivanov@gmail.com"));
+        $(".table-responsive").$(byText("Gender")).parent().shouldHave(text("Male"));
+        $(".table-responsive").$(byText("Mobile")).parent().shouldHave(text("8900234456"));
+        $(".table-responsive").$(byText("Date of Birth")).parent().shouldHave(text("24 October,2000"));
+        $(".table-responsive").$(byText("Subjects")).parent().shouldHave(text("English, Computer Science"));
+        $(".table-responsive").$(byText("Hobbies")).parent().shouldHave(text("Sports, Music"));
+        $(".table-responsive").$(byText("Picture")).parent().shouldHave(text("images.jfif"));
+        $(".table-responsive").$(byText("Address")).parent().shouldHave(text("Saint Petersburg, Nevskiy prospekt, 9"));
+        $(".table-responsive").$(byText("State and City")).parent().shouldHave(text("NCR Delhi"));
         $("#closeLargeModal").click();
     }
 }
