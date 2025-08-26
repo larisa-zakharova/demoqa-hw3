@@ -7,6 +7,7 @@ import static com.codeborne.selenide.Selectors.*;
 import static com.codeborne.selenide.Selenide.*;
 
 
+
 public class PracticeFormTests {
 
     @BeforeAll
@@ -24,16 +25,16 @@ public class PracticeFormTests {
         $("#firstName").setValue("Alex");
         $("#lastName").setValue("Ivanov");
         $("#userEmail").setValue("alex_ivanov@gmail.com");
-        $(byText("Male")).click();
+        $("#genterWrapper").$(byText(("Male"))).click();
         $("#userNumber").setValue("8900234456");
         $("#dateOfBirthInput").click();
-        $(".react-datepicker__month-select").find(byText("October")).click();
-        $(".react-datepicker__year-select").find(byText("2000")).click();
-        $(".react-datepicker__month").find(byText("24")).click();
+        $(".react-datepicker__month-select").$(byText("October")).click();
+        $(".react-datepicker__year-select").$(byText("2000")).click();
+        $(".react-datepicker__month").$(byText("24")).click();
         $("#subjectsInput").setValue("English").pressEnter();
         $("#subjectsInput").setValue("Computer Science").pressEnter();
-        $("label[for='hobbies-checkbox-1']").click();
-        $("label[for='hobbies-checkbox-3']").click();
+        $("#hobbiesWrapper").$(byText(("Sports"))).click();
+        $("#hobbiesWrapper").$(byText(("Music"))).click();
         $("input[type='file']").uploadFromClasspath("images/images.jfif");
         $("#currentAddress").setValue("Saint Petersburg, Nevskiy prospekt, 9");
         $("#react-select-3-input").setValue("NCR").pressEnter();
